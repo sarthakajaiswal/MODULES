@@ -1,0 +1,609 @@
+************************************************************
+
+	DOCUMENTATION FOR LIST MODULE
+	
+		THIS IS C API 
+
+/************************************************************ 
+
+        AUTHOR  : SARTHAK AYODHYAPRASAD JAISWAL 
+        DATE    : 12 FEB 2025 
+
+        NOTE : THIS DOCUMENTATION IS VALID FOR
+                ALL FOUR MODULES VIZ.- 
+                1) SINGLY LINKED LIST 
+                2) SINGLY CIRCULAR LINKED LIST 
+                3) DOUBLY LINKED LIST 
+                4) DOUBLY CIRCULAY LINKED LIST 
+
+*************************************************************
+
+    Each module implements following functionalities : 
+
+    functionalities on single list : 
+        create_list 
+        insert_start 
+        insert_end 
+        insert_before 
+        insert_after 
+        get_start 
+        get_end 
+        remove_start
+        remove_end 
+        remove_data 
+        pop_start 
+        pop_end 
+        is_list_empty 
+        to_list 
+        to_array 
+        find 
+        get_list_length 
+        clear_list 
+        destroy_list
+        show_list 
+
+    interlist functionalities :  
+        get_concatenated_list 
+        concat_lists 
+        get_reversed_list 
+        reverse_list
+        merge_lists 
+
+***************************************************************/ 
+
+--------------------------------------------------
+
+list_t* create_list(
+            void
+        ); 
+
+Responsibilities : 
+    creates a new list and returns the base address of newly allocated list. 
+
+@return value : list_t* 
+    base address of newly allocated list. 
+
+--------------------------------------------------
+
+status_t insert_start(
+                list_t* p_list, [IN]
+                data_t new_data [IN]
+            ) 
+
+Responsibilities : 
+    allocates new node with data new_data(@param2) and inserts it at the first position into p_list(@param1) 
+    and returns the status of performed operation. 
+    
+Note :
+    The process is terminated if there is error in allocating memory for the new node. 
+
+Assumptions : 
+    p_list is not NULL. 
+
+@param1: list_t* 
+    pointer to the list in which the node node is to be inserted at start. 
+@param2: data_t 
+    data to be inserted at start. 
+
+@return : status_t 
+    SUCCESS if new node is successfully inserted at start. 
+
+--------------------------------------------------
+
+status_t insert_end(
+                list_t* p_list, [IN]  
+                data_t new_data [IN] 
+            ) 
+
+Responsibilities : 
+    allocates a new node with new_data(@param2) and inserts it into last position in p_list(@param2) 
+    and then returns the status of the performed operation. 
+    Note that the process is terminated if there is error while allocating the memory for new node. 
+
+Assumptions :
+    p_list is not NULL. 
+
+@param1 : list_t* 
+    base address of the list in which the data is to be inserted at last. 
+@param2 : data_t 
+    data that is to be inserted into list. 
+
+@return : status_t 
+    SUCCESS if data is successfully inserted in its position. 
+
+--------------------------------------------------
+
+status_t insert_after(
+            list_t* p_list, [IN] 
+            data_t e_data,  [IN]
+            data_t new_data [IN]
+        )
+
+Responsibilities : 
+    allocates new node with data new_data(@param2) and inserts it after the first instance of e_data(@param2) into p_list(@param1) 
+    and returns the status of performed operation. Note that the process is terminated if there is error in allocating memory 
+    for the new node. 
+
+Assumptions : 
+    p_list is not NULL. 
+
+@param1: list_t* 
+    pointer to the list in which the node is to be inserted. 
+@param2 : data_t 
+    data after which the new_data(@param3) is to be inserted.  
+@param2: data_t 
+    data to be inserted. 
+
+@return : status_t 
+    SUCCESS if new node is successfully inserted. 
+    LIST_EMPTY if list contains no data. 
+    LIST_DATA_NOT_FOUND if the e_data(@param2) do not exist into the p_list(@param1). 
+
+--------------------------------------------------
+
+status_t insert_before(
+                    list_t* p_list, [IN]
+                    data_t e_data,  [IN]
+                    data_t new_data [IN]
+                )  
+
+Responsibilities : 
+    allocates new node with data new_data(@param2) and inserts it before the first instance of e_data(@param2) into p_list(@param1) 
+    and returns the status of performed operation. Note that the process is terminated if there is error in allocating memory 
+    for the new node. 
+Assumptions : 
+    p_list is not NULL. 
+
+@param1: list_t* 
+    pointer to the list in which the node is to be inserted. 
+@param2 : data_t 
+    data before which the new_data(@param3) is to be inserted.  
+@param2: data_t 
+    data to be inserted. 
+
+@return : status_t 
+    SUCCESS if new node is successfully inserted. 
+    LIST_EMPTY if list contains no data. 
+    LIST_DATA_NOT_FOUND if the e_data(@param2) do not exist into the p_list(@param1). 
+
+--------------------------------------------------
+
+status_t get_start(
+                list_t* p_list,         [IN]
+                data_t* p_start_data    [OUT] 
+            ) 
+
+Responsibilities : 
+    writes at the address in p_start_data(@param2) the data in the start node of p_list(@param1) 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose start data is to be fetched. 
+@param2 : data_t* 
+    the data at the the first position in p_list(@param1) is written on this address. 
+    Note that the memory must be already allocated 
+    and its base address should be provided here for writing the end data of list. 
+
+@return : 
+    SUCCESS if the operations succeeds. 
+    LIST_EMPTY if list contains no data. 
+
+--------------------------------------------------
+
+status_t get_end(
+            list_t* p_list,     [IN]
+            data_t* p_end_data  [OUT] 
+        )  
+
+Responsibilities : 
+    writes at the address in p_end_data(@param2) the data in the end node of p_list(@param1) 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose start data is to be fetched. 
+@param2 : data_t* 
+    the data at the the first position in p_list(@param1) is written on this address. 
+    Note that the memory must be already allocated 
+    and its base address should be provided here for writing the end data of list. 
+
+@return : 
+    SUCCESS if the operations succeeds. 
+    LIST_EMPTY if list contains no data. 
+
+--------------------------------------------------
+
+status_t remove_start(
+                list_t* p_list  [IN]
+            ) 
+
+Responsibilities : 
+    removes the starting node of the list pointed by p_list(@param1) 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose starting node is to be removed. 
+
+@return : status_t 
+    status of the performed operations 
+    SUCCESS if operation succeeds. 
+    LIST_EMPTY if list provided in p_list(@param1) contains no data. 
+
+--------------------------------------------------
+
+status_t remove_end(
+            list_t* p_list  [IN]
+        ) 
+
+Responsibilities : 
+    removes the end node of the list pointed by p_list(@param1) 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose end node is to be removed. 
+
+@return : status_t 
+    status of the performed operations 
+    SUCCESS if operation succeeds. 
+    LIST_EMPTY if list provided in p_list(@param1) contains no data. 
+
+--------------------------------------------------
+
+status_t remove_data(
+                list_t* p_list, [IN]
+                data_t r_data   [IN]
+            ) 
+
+Responsibilities : 
+    removes the first occuring node containing r_data(@param2) of the list pointed by p_list(@param1) 
+    and returns the status of operation.
+Assumptions : 
+    p_list is not NULL. 
+
+@param1 : list_t* 
+    base address of the list whose node is to be removed. 
+
+@return : status_t 
+    status of the performed operations 
+    SUCCESS if operation succeeds. 
+    LIST_EMPTY if list provided in p_list(@param1) contains no data. 
+    LIST_DATA_NOT_FOUND if the r_data(@param2) is not present in the list. 
+
+--------------------------------------------------
+
+status_t pop_start(
+            list_t* p_list,         [IN]
+            data_t* p_popped_data   [OUT] 
+        )  
+
+Responsibilities : 
+    pops the first node of the list pointed by p_list(@param1) 
+    by writting its contents at address in p_popped_data(@param2). 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose stating node is to be popped. 
+
+@return : status_t 
+    status of the performed operations 
+    SUCCESS if operation succeeds. 
+    LIST_EMPTY if list provided in p_list(@param1) contains no data. 
+
+--------------------------------------------------
+
+status_t pop_end(
+            list_t* p_list,         [IN]
+            data_t* p_popped_data   [OUT] 
+        ) 
+
+Responsibilities : 
+    pops the last node of the list pointed by p_list(@param1) 
+    by writting its contents at address in p_popped_data(@param2). 
+    and returns the status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose stating node is to be popped. 
+
+@return : status_t 
+    status of the performed operations 
+    SUCCESS if operation succeeds. 
+    LIST_EMPTY if list provided in p_list(@param1) contains no data. 
+
+--------------------------------------------------
+
+status_t is_list_empty(
+                list_t* p_list  [IN]
+            ) 
+
+Responsibilities : 
+    checks is the list pointed by p_list(@param1) is empty? 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list which is to be checked for emptyness. 
+
+@return : status_t 
+    TRUE if list at p_list(@param1) is empty. 
+    FALSE if list at p_list(@param1) is not empty. 
+
+--------------------------------------------------
+
+len_t get_list_length(
+                list_t* p_list [IN]
+            ) 
+
+Responsibilities : 
+    returns the number of data elements in the list pointed by p_list(@param1). 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list whose length is to be measured. 
+
+@return len_t 
+    length of the string pointed by p_list(@param1). 
+    Return value is 0 if the list is empty. 
+
+--------------------------------------------------
+
+list_t* to_list(
+            data_t* p_array,    [IN]
+            len_t N             [OUT] 
+        )  
+
+Responsibilities : 
+    Allocates new list and fills it with data in input array p_array(@param1). 
+    And returns the base address of this newly allocated list. 
+
+Note: 
+    The input array (@param1) remains unaltered throught the operation. 
+    The process is terminated if there is error in allocating memory for new list with the 
+    error message "Error in allocating Memory". 
+
+@param1 : data_t* 
+    Base address of the array whose data elements are to be copied into new list. 
+@param2 : len_t 
+    Number of elements in p_array(@param1). 
+
+@return : list_t* 
+    Base address of the newly allocated list and filled with data elements in p_array(@param1). 
+
+--------------------------------------------------
+
+data_t* to_array(
+            list_t* p_list, [IN]
+            len_t* pN       [OUT] 
+        )  
+
+Responsibilities : 
+    Allocates new array and fills it with data in input list p_list(@param1). 
+    And returns the base address of this newly allocated array also writes the number of elements 
+    copied into this newly allocated array on memory location pN(@param2). 
+
+Note: 
+    The input list (@param1) remains unaltered throught the operation. 
+    The process is terminated if there is error in allocating memory for array with the 
+    error message "Error in allocating Memory". 
+
+@param1 : data_t* 
+    Base address of the array whose data elements are to be copied into new list. 
+@param2 : len_t* 
+    Base address of the location on which number of elements in newly allocated array is written. 
+    Note that this memory location must already allocated by caller.    
+
+@return : data_t* 
+    Base address of the newly allocated array and filled with data elements in p_list(@param1). 
+
+--------------------------------------------------
+
+status_t find(
+        list_t* p_list, [IN] 
+        data_t f_data   [IN] 
+)
+
+Responsibilities : 
+    Search for the node with f_data(@param2) in p_list(@param1). 
+    and returns the status of search. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    Base address of the list in which the f_data(@param2) is to be searched. 
+@param2 : data_t 
+    data to be searched 
+
+@return : status_t 
+    status of the search. 
+    TRUE if node containing f_data(@param2) is found 
+    FALSE otherwise. 
+
+--------------------------------------------------
+
+status_t clear_list(
+                list_t* p_list  [IN]
+            )  
+
+Responsibilities : 
+    deallocates all the memory allocated for the nodes of p_list(@param1) which contains data members. 
+    and returns status of operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    pointer to the list which is to be cleared. 
+
+@return : status_t 
+    status of the performed operation 
+    SUCCESS if the operation is performed successfully. 
+
+--------------------------------------------------
+
+void show_list(
+            list_t* p_list, [IN] 
+            const char* msg [IN] 
+        ) 
+
+Responsibilities : 
+    Displays any optional message in msg(@param2) 
+    Displays the list contained at p_list(@param1) with the proper sequence of data.  
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : list_t* 
+    base address of the list to be displayed 
+@param2 : const char* msg 
+    Message that is to be printed before displaying the list. This message can be avoided by passing 'NULL' here. 
+
+--------------------------------------------------
+
+status_t destroy_list(
+            list_t** pp_list    [IN-OUT]
+        ) 
+
+Responsibilities : 
+    frees all the memory associated with the list associated with the pointer whose base address is in pp_list(@param2), 
+    also makes the pointer NULL who contains base address of list whose address is given in pp_list(@param2) and 
+    then returns the status of the performed operations(@return). 
+
+@param1 : list_t** 
+    base address of pointer containing base address of list which is to be destroyed. 
+
+@return : 
+    SUCCESS if operation succeeds. 
+
+--------------------------------------------------
+
+/********** INTERLIST ROUTINES *********/ 
+
+--------------------------------------------------
+
+list_t* get_reversed_list(
+                list_t* p_list  [IN] 
+            )
+
+Responsibilities : 
+    Allocates memory for the new list which contains the nodes in the reverse order of the 
+    order in which p_list(@param1) contains. And returns the base address of this newly 
+    allocated list.  
+    Note that the process terminates if there is error in allocating memory for new list. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : p_list  
+    base address of the list whose reverse list is to be returned. 
+
+@rerturn : list_t* 
+    base address of newly allocated list which contains the nodes in the reverse order of the 
+    order in which p_list(@param1) contains. 
+
+--------------------------------------------------
+
+status_t reverse_list(
+                list_t* p_list, [IN-OUT] 
+            ) 
+
+Responsibilities : 
+    Performes the inplace reversal of list whose base address is provided in p_list(@param1)
+    and returns the status of performed operation. 
+Assumptions : 
+    p_list is not NULL.
+
+@param1 : p_list  
+    base address of the list which is to be reversed. 
+
+@rerturn : status_t
+    status of the operation performed. 
+    SUCCESS if the operation succeeds. 
+
+--------------------------------------------------
+
+list_t* get_concatenated_lists(
+                    list_t* p_list_1,   [IN] 
+                    list_t* p_list_2    [IN] 
+                ) 
+
+Responsibilities : 
+    Allocates a new list that contains all the data members from p_list_1(@param1) and p_list_2(@param2) in 
+    order obtained by concatenation of two lists p_list_1(@param1) and p_list_2(@param2). 
+    And returns the base address of newly allocated list. 
+Assumptions : 
+    p_list_1 and p_list_2 are not NULL.
+    
+Note : 
+    The two input lists p_list_1(@param1) and p_list_2(@param2) remains unchanged after the operation. 
+    Process is terminated if there is error in allocating memory for new list. 
+
+@param1 : list_t* 
+@param2 : list_t* 
+    lists that are to be concatenated into new list 
+
+@return : list_t* 
+    base address of the newly allocated list for the concatenation of two input lists. 
+
+--------------------------------------------------
+
+status_t concat_lists(
+            list_t* p_list_1,   [IN-OUT]
+            list_t* p_list_2    [IN]
+        )  
+
+Responsibilities : 
+    In-place concatenation of two lists p_list_1(@param1) and p_list_2(@param2). 
+    The data members from p_list_2(@param2) are moved and attached to p_list_1(@param1) 
+    making second list p_list_2(@param2) empty. 
+    Returns the status of operation. 
+Assumptions : 
+    p_list_1 and p_list_2 are not NULL.
+    
+Note : 
+    list pointed by p_list_2(@param2) is modified during this operation. 
+    It becomes empty after the operation. 
+
+@param1 : list_t* 
+    list that is to be overriden by the concatanation of self and p_list_2(@param2). 
+@param2 : list_t* 
+    second of the two lists that is to be concatenated. 
+
+@return : status_t
+    status of the performed operation. 
+    SUCCESS if the operation succeeds. 
+
+--------------------------------------------------
+
+list_t* merge_lists(
+            list_t* p_list_1,   [IN]
+            list_t* p_list_2    [IN] 
+        ) 
+
+Responsibilities : 
+    Allocates a new list that contains all the data members from p_list_1(@param1) and p_list_2(@param2) in 
+    in ascending order.  
+    And returns the base address of newly allocated list.  
+Assumptions : 
+    p_list_1 and p_list_2 are not NULL.
+    
+Note : 
+    The two input lists p_list_1(@param1) and p_list_2(@param2) remains unchanged after the operation. 
+    Process is terminated if there is error in allocating memory for new list. 
+
+@param1 : list_t* 
+@param2 : list_t* 
+    lists that are to be merged into new list 
+
+@return : list_t* 
+    base address of the newly allocated list for the merging data of two input lists. 
+
+--------------------------------------------------
+
