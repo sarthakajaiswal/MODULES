@@ -592,7 +592,7 @@ Responsibilities :
     in ascending order.  
     And returns the base address of newly allocated list.  
 Assumptions : 
-    p_list_1 and p_list_2 are not NULL.
+    p_list_1 and p_list_2 are not NULL and sorted in ascending order.
     
 Note : 
     The two input lists p_list_1(@param1) and p_list_2(@param2) remains unchanged after the operation. 
